@@ -22,6 +22,7 @@ COLORS = ['red', 'blue', 'green', 'yellow', 'gray', 'pink', 'violet', 'brown',
 def dataSet2ListPoints(dirDataSet):
     '''
     Read a txt file with a set of points and return a list of objects Point
+    :param dirDataSet: path file
     '''
     points = list()
     with open(dirDataSet, 'rt') as reader:

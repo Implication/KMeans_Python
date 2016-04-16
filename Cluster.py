@@ -20,8 +20,8 @@ class Cluster:
         for p in points:
             if p.dimension != self.dimension:
                 raise Exception(
-                    "Point %s has dimension %d different with %d from the rest of points") % (
-                      p, len(p), self.dimension)
+                    "Point %s has dimension %d different with %d from the rest "
+                    "of points") % (p, len(p), self.dimension)
 
         # Calculate Centroid
         self.centroid = self.calculateCentroid()
