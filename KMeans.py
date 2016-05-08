@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-__author__ = 'RicardoMoya'
-
 import random
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import distance
 from Point import Point
 from Cluster import Cluster
+
+# -*- coding: utf-8 -*-
+__author__ = 'RicardoMoya'
 
 DATASET1 = "./dataSet/DS_3Clusters_999Points.txt"
 DATASET2 = "./dataSet/DS2_3Clusters_999Points.txt"
@@ -18,38 +18,38 @@ COLORS = ['red', 'blue', 'green', 'yellow', 'gray', 'pink', 'violet', 'brown',
           'cyan', 'magenta']
 
 
-def dataSet2ListPoints(dirDataSet):
-    '''
+def dataset_to_list_points(dir_dataset):
+    """
     Read a txt file with a set of points and return a list of objects Point
-    :param dirDataSet:
-    '''
+    :param dir_dataset:
+    """
     points = list()
-    with open(dirDataSet, 'rt') as reader:
+    with open(dir_dataset, 'rt') as reader:
         for point in reader:
             points.append(Point(np.asarray(map(float, point.split("::")))))
     return points
 
 
-def getNearestCluster(clusters, point):
-    '''
+def get_nearest_cluster(clusters, point):
+    """
     Calculate the nearest cluster
     :param clusters: old clusters
     :param point: point to assign cluster
     :return: index of list cluster
-    '''
+    """
     dist = np.zeros(len(clusters))
     for i, c in enumerate(clusters):
         dist[i] = distance.euclidean(point.coordinates, c.centroid)
     return np.argmin(dist)
 
 
-def printClustersStatus(itCounter, clusters):
-    print '\nITERATION %d' % itCounter
+def print_clusters_status(it_counter, clusters):
+    print '\nITERATION %d' % it_counter
     for i, c in enumerate(clusters):
         print '\tCentroid Cluster %d: %s' % (i + 1, str(c.centroid))
 
 
-def printResults(clusters):
+def print_results(clusters):
     print '\n\nFINAL RESULT:'
     for i, c in enumerate(clusters):
         print '\tCluster %d' % (i + 1)
@@ -57,7 +57,7 @@ def printResults(clusters):
         print '\t\tCentroid: %s' % str(c.centroid)
 
 
-def plotResults(clusters):
+def plot_results(clusters):
     plt.plot()
     for i, c in enumerate(clusters):
         # plot points
@@ -69,47 +69,47 @@ def plotResults(clusters):
     plt.show()
 
 
-def kMeans(dataSet, numClusters, iterations):
+def k_means(dataset, num_clusters, iterations):
     # Read data set
-    points = dataSet2ListPoints(dataSet)
+    points = dataset_to_list_points(dataset)
 
     # Select N points random to initiacize the N Clusters
-    initial = random.sample(points, numClusters)
+    initial = random.sample(points, num_clusters)
 
     # Create N initial Clusters
     clusters = [Cluster([p]) for p in initial]
 
     # Inicialize list of lists to save the new points of cluster
-    newPointsCluster = [[] for i in range(numClusters)]
+    new_points_cluster = [[] for i in range(num_clusters)]
 
     converge = False
-    itCounter = 0
-    while (not converge) and (itCounter < iterations):
+    it_counter = 0
+    while (not converge) and (it_counter < iterations):
         # Assign points in nearest centroid
         for p in points:
-            iCluster = getNearestCluster(clusters, p)
-            newPointsCluster[iCluster].append(p)
+            i_cluster = get_nearest_cluster(clusters, p)
+            new_points_cluster[i_cluster].append(p)
 
         # Set new points in clusters and calculate de new centroids
         for i, c in enumerate(clusters):
-            c.updateCluster(newPointsCluster[i])
+            c.update_cluster(new_points_cluster[i])
 
         # Check that converge all Clusters
         converge = [c.converge for c in clusters].count(False) == 0
 
         # Increment counter and delete lists of clusters points
-        itCounter += 1
-        newPointsCluster = [[] for i in range(numClusters)]
+        it_counter += 1
+        new_points_cluster = [[] for i in range(num_clusters)]
 
         # Print clusters status
-        printClustersStatus(itCounter, clusters)
+        print_clusters_status(it_counter, clusters)
 
     # Print final result
-    printResults(clusters)
+    print_results(clusters)
 
     # Plot Final results
-    plotResults(clusters)
+    plot_results(clusters)
 
 
 if __name__ == '__main__':
-    kMeans(DATASET1, NUM_CLUSTERS, ITERATIONS)
+    k_means(DATASET1, NUM_CLUSTERS, ITERATIONS)
