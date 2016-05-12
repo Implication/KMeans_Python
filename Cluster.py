@@ -1,13 +1,13 @@
+import numpy as np
+
 # -*- coding: utf-8 -*-
 __author__ = 'RicardoMoya'
 
-import numpy as np
-
 
 class Cluster:
-    '''
+    """
     Class to represent a Cluster: set of points and their centroid
-    '''
+    """
 
     def __init__(self, points):
         if len(points) == 0:
@@ -24,32 +24,32 @@ class Cluster:
                     "of points") % (p, len(p), self.dimension)
 
         # Calculate Centroid
-        self.centroid = self.calculateCentroid()
+        self.centroid = self.calculate_centroid()
         self.converge = False
 
-    def calculateCentroid(self):
-        '''
+    def calculate_centroid(self):
+        """
         Method that calculates the centroid of the Cluster, calculating
         the average of each of the coordinates of the points
         :return: Centroid of cluster
-        '''
-        sumCoordinates = np.zeros(self.dimension)
+        """
+        sum_coordinates = np.zeros(self.dimension)
         for p in self.points:
             for i, x in enumerate(p.coordinates):
-                sumCoordinates[i] += x
+                sum_coordinates[i] += x
 
-        return (sumCoordinates / len(self.points)).tolist()
+        return (sum_coordinates / len(self.points)).tolist()
 
-    def updateCluster(self, points):
-        '''
+    def update_cluster(self, points):
+        """
         Calculate the new centroid and check if converge
         :param points: list of new points
         :return: updated cluster
-        '''
-        oldCentroid = self.centroid
+        """
+        old_centroid = self.centroid
         self.points = points
-        self.centroid = self.calculateCentroid()
-        self.converge = np.array_equal(oldCentroid, self.centroid)
+        self.centroid = self.calculate_centroid()
+        self.converge = np.array_equal(old_centroid, self.centroid)
 
     def __repr__(self):
         cluster = 'Centroid: ' + str(self.centroid) + '\nDimension: ' + str(
