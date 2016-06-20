@@ -1,11 +1,11 @@
+# -*- coding: utf-8 -*-
+__author__ = 'RicardoMoya'
+
 import unittest
 import numpy as np
 import KMeans
 from Point import Point
 from Cluster import Cluster
-
-# -*- coding: utf-8 -*-
-__author__ = 'RicardoMoya'
 
 
 class MyTestCase(unittest.TestCase):

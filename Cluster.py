@@ -1,7 +1,7 @@
-import numpy as np
-
 # -*- coding: utf-8 -*-
 __author__ = 'RicardoMoya'
+
+import numpy as np
 
 
 class Cluster:

@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
+__author__ = 'RicardoMoya'
+
 import random
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import distance
 from Point import Point
 from Cluster import Cluster
-
-# -*- coding: utf-8 -*-
-__author__ = 'RicardoMoya'
 
 DATASET1 = "./dataSet/DS_3Clusters_999Points.txt"
 DATASET2 = "./dataSet/DS2_3Clusters_999Points.txt"
